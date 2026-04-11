@@ -36,6 +36,25 @@ namespace ControlTower
         /// <summary>
         /// Occurs when an airplane is landing.
         /// </summary>
-        public event EventHandler<AirplaneEventArgs> Landing;
+        public event EventHandler<AirplaneEventArgs> Landed;
+
+        /// <summary>
+        /// Initializes a new instance of the Airplane class with the specified flight number, destination, and flight
+        /// time.
+        /// </summary>
+        /// <param name="flightNumber">The flight number assigned to the airplane.</param>
+        /// <param name="destination">The destination of the flight.</param>
+        /// <param name="flightTime">The duration of the flight in hours.</param>
+        /// <exception cref="ArgumentNullException">Thrown when flightNumber is null.</exception>
+        public Airplane(string flightNumber, string destination, double flightTime)
+        {
+            FlightNumber = flightNumber ?? throw new ArgumentNullException(nameof(flightNumber));
+            Destination = destination ?? string.Empty;
+            FlightTime = Math.Max(0.0, flightTime);
+            FlightHeight = 0;
+            InFlight = false;
+            dispatchTimer = new Timer { Interval = 1000 };
+            dispatchTimer.Tick += DispatchTimer_Tick;
+        }
     }
 }
