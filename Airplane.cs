@@ -71,5 +71,21 @@ namespace ControlTower
             dispatchTimer.Start();
             OnTakeOff(new AirplaneEventArgs(FlightNumber, $"Took off, heading for {Destination}"));
         }
+        /// <summary>
+        /// Handles the timer tick event to simulate flight time and triggers landing when the flight time is reached.
+        /// </summary>
+        /// <param name="newAltitude">The new altitude to set for the airplane.</param>
+        /// <returns>The updated flight height.</returns>
+        public int ChangeAltitude(int newAltitude)
+        {
+            if (!InFlight)
+            {
+                // Not airborne; ignore change
+                return -1;
+            }
+
+            FlightHeight = newAltitude;
+            return FlightHeight;
+        }
     }
 }
