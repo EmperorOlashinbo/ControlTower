@@ -105,5 +105,21 @@ namespace ControlTower
                 OnLanded(new AirplaneEventArgs(FlightNumber, $"has landed in {Destination}"));
             }
         }
+        /// <summary>
+        /// Raises the TakeOff event with the specified event arguments, allowing subscribers to respond to the airplane's
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnTakeOff(AirplaneEventArgs e)
+        {
+            TakeOff?.Invoke(this, e);
+        }
+        /// <summary>
+        /// Raises the Landed event with the specified event arguments, allowing subscribers to respond to the airplane's
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnLanded(AirplaneEventArgs e)
+        {
+            Landed?.Invoke(this, e);
+        }
     }
 }
