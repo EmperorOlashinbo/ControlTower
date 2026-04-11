@@ -87,5 +87,23 @@ namespace ControlTower
             FlightHeight = newAltitude;
             return FlightHeight;
         }
+        /// <summary>
+        /// Raises the TakeOff event with the specified event arguments.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void DispatchTimer_Tick(object sender, EventArgs e)
+        {
+            elapsedSeconds++;
+
+            // FlightTime is given in hours; in simulation 1 second == 1 hour so compare seconds to FlightTime.
+            if (elapsedSeconds >= Math.Ceiling(FlightTime))
+            {
+                // Stop timer and land
+                dispatchTimer.Stop();
+                InFlight = false;
+                OnLanded(new AirplaneEventArgs(FlightNumber, $"has landed in {Destination}"));
+            }
+        }
     }
 }
