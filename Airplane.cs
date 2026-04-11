@@ -29,5 +29,13 @@ namespace ControlTower
         public int FlightHeight { get; private set; }
         public bool InFlight { get; private set; }
 
+        /// <summary>
+        /// Occurs when an airplane takes off.
+        /// </summary>
+        public event EventHandler<AirplaneEventArgs> TakeOff;
+        /// <summary>
+        /// Occurs when an airplane is landing.
+        /// </summary>
+        public event EventHandler<AirplaneEventArgs> Landing;
     }
 }
