@@ -56,5 +56,20 @@ namespace ControlTower
             dispatchTimer = new Timer { Interval = 1000 };
             dispatchTimer.Tick += DispatchTimer_Tick;
         }
+        /// <summary>
+        /// Starts the airplane's flight, initializing flight parameters and notifying listeners of takeoff.
+        /// </summary>
+        public void Start()
+        {
+            if (InFlight) return;
+            InFlight = true;
+            departureTime = DateTime.Now;
+            elapsedSeconds = 0;
+            // Notify that the airplane is preparing for takeoff
+            OnTakeOff(new AirplaneEventArgs(FlightNumber, $"Preparing for takeoff, heading for {Destination}"));
+            // Start the timer to simulate flight time
+            dispatchTimer.Start();
+            OnTakeOff(new AirplaneEventArgs(FlightNumber, $"Took off, heading for {Destination}"));
+        }
     }
 }
