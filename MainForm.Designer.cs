@@ -24,6 +24,18 @@
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.NumericUpDown numAltitude;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         
 
         #region Windows Form Designer generated code
