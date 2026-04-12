@@ -130,5 +130,19 @@ namespace ControlTower
 
             return result;
         }
+        /// <summary>
+        /// Subscribes to the takeoff and landing events of the specified airplane, 
+        /// allowing the control tower to respond to changes in flight status.
+        /// </summary>
+        /// <param name="plane">The airplane whose events to subscribe to.</param>
+        private void SubscribeToPlaneEvents(Airplane plane)
+        {
+            // Prevent multiple subscriptions by removing first (safe)
+            plane.TakeOff -= HandlePlaneTakeOff;
+            plane.Landed -= HandlePlaneLanded;
+
+            plane.TakeOff += HandlePlaneTakeOff;
+            plane.Landed += HandlePlaneLanded;
+        }
     }
 }
