@@ -164,5 +164,22 @@ namespace ControlTower
             TakeOff?.Invoke(this, e);
             StatusUpdated?.Invoke(this, new AirplaneEventArgs(e.FlightNumber, e.Message));
         }
+        /// <summary>
+        /// Handles the landing event of an airplane by unsubscribing from its events,
+        /// invoking the Landed event, and updating the status with the flight number and message.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandlePlaneLanded(object sender, AirplaneEventArgs e)
+        {
+            // Unsubscribe from this plane's events
+            if (sender is Airplane plane)
+            {
+                UnsubscribeFromPlaneEvents(plane);
+            }
+
+            Landed?.Invoke(this, e);
+            StatusUpdated?.Invoke(this, new AirplaneEventArgs(e.FlightNumber, e.Message));
+        }
     }
 }
