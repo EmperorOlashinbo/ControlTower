@@ -63,5 +63,36 @@ namespace ControlTower
             StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, "removed from registry"));
             return true;
         }
+        /// <summary>
+        /// Subscribes to the takeoff and landing events of the specified airplane,
+        /// allowing the control tower to respond to changes in flight status.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public bool OrderTakeOff(int index, out string message)
+        {
+            message = string.Empty;
+            if (index < 0 || index >= flights.Count)
+            {
+                message = "Invalid flight selection.";
+                return false;
+            }
+
+            var plane = flights[index];
+
+            if (plane.InFlight)
+            {
+                message = "Plane already airborne.";
+                return false;
+            }
+
+            // Ensure we are subscribed to its events (resubscribe if previously unsubscribed)
+            SubscribeToPlaneEvents(plane);
+
+            plane.StartTakeOff();
+            message = $"Take-off authorized for {plane.FlightNumber}.";
+            return true;
+        }
     }
 }
