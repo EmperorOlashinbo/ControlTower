@@ -105,6 +105,32 @@ namespace ControlTower
                 MessageBox.Show(message, "Remove Flight", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        /// <summary>
+        /// Handles the Click event of the BtnChangeAltitude button, allowing the user to change the altitude of a selected flight if it is currently in the air,
+        /// and updating the log and list view based on the outcome of the operation.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void BtnChangeAltitude_Click(object sender, EventArgs e)
+        {
+            int idx = lstFlights.SelectedIndex;
+            if (idx < 0)
+            {
+                MessageBox.Show("Select a flight to change altitude.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int newAlt = (int)numAltitude.Value;
+            int result = tower.ChangeFlightHeight(idx, newAlt, out string message);
+            AppendLog(message);
+
+            if (result == -1)
+            {
+                MessageBox.Show(message, "Altitude", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            UpdateListView();
+        }
 
         
     }
