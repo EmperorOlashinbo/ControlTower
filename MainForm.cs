@@ -131,6 +131,38 @@ namespace ControlTower
 
             UpdateListView();
         }
+        /// <summary>
+        /// Handles the TakeOff event of the control tower, appending the event information to the log and updating the list view to reflect the current status of flights in the registry.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void Tower_TakeOff(object sender, AirplaneEventArgs e)
+        {
+            AppendLog(e.ToString());
+            UpdateListView();
+        }
+        /// <summary>
+        /// Handles the Landed event of the control tower, appending the event information to the log 
+        /// and updating the list view to reflect the current status of flights in the registry.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void Tower_Landed(object sender, AirplaneEventArgs e)
+        {
+            AppendLog(e.ToString());
+            UpdateListView();
+        }
+        /// <summary>
+        /// Handles the StatusUpdated event of the control tower, appending the event information to the log and 
+        /// updating the list view to reflect any changes in flight status or altitude in the registry.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void Tower_StatusUpdated(object sender, AirplaneEventArgs e)
+        {
+            AppendLog(e.ToString());
+            UpdateListView();
+        }
 
         
     }
