@@ -95,7 +95,8 @@ namespace ControlTower
             return true;
         }
         /// <summary>
-        /// 
+        /// Subscribes to the takeoff and landing events of the specified airplane, 
+        /// allowing the control tower to respond to changes in flight status.
         /// </summary>
         /// <param name="index"></param>
         /// <param name="newHeight"></param>
@@ -121,7 +122,13 @@ namespace ControlTower
             {
                 message = $"Flight {plane.FlightNumber} is not airborne. Altitude not changed.";
             }
-            
+            else
+            {
+                message = $"Flight {plane.FlightNumber} altitude changed to {result}.";
+                StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"altitude changed to {result}"));
+            }
+
+            return result;
         }
     }
 }
