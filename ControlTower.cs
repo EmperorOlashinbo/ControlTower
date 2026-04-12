@@ -154,5 +154,15 @@ namespace ControlTower
             plane.TakeOff -= HandlePlaneTakeOff;
             plane.Landed -= HandlePlaneLanded;
         }
+        /// <summary>
+        /// Handles the takeoff event of an airplane by invoking the TakeOff event and updating the status with the flight number and message.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandlePlaneTakeOff(object sender, AirplaneEventArgs e)
+        {
+            TakeOff?.Invoke(this, e);
+            StatusUpdated?.Invoke(this, new AirplaneEventArgs(e.FlightNumber, e.Message));
+        }
     }
 }
