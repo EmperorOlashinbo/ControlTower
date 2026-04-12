@@ -33,5 +33,24 @@ namespace ControlTower
             SubscribeToPlaneEvents(plane);
             StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
         }
+        /// <summary>
+        /// Removes an airplane from the control tower's list of flights based on the specified index, 
+        /// ensuring that the flight is not currently in the air before allowing removal,
+        /// and notifies listeners of the removal.
+        /// </summary>
+        /// <param name="index">The index of the airplane to remove.</param>
+        /// <param name="message">A message indicating the result of the removal operation.</param>
+        /// <returns>True if the airplane was successfully removed; otherwise, false.</returns>
+        public bool RemoveFlight(int index, out string message)
+        {
+            message = string.Empty;
+            if (index < 0 || index >= flights.Count)
+            {
+                message = "Invalid index.";
+                return false;
+            }
+
+            
+        }
     }
 }
