@@ -36,7 +36,46 @@
             base.Dispose(disposing);
         }
 
-        
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.Text = "Airport Simulator - Control Tower";
+            this.ClientSize = new System.Drawing.Size(900, 520);
+
+            lblName = new System.Windows.Forms.Label { Left = 12, Top = 12, Width = 80, Text = "Name:" };
+            txtName = new System.Windows.Forms.TextBox { Left = 100, Top = 10, Width = 200, Text = "Boeing 747 XL" };
+
+            lblFlightId = new System.Windows.Forms.Label { Left = 12, Top = 42, Width = 80, Text = "Flight ID:" };
+            txtFlightId = new System.Windows.Forms.TextBox { Left = 100, Top = 40, Width = 200, Text = "LFT 123" };
+
+            lblDestination = new System.Windows.Forms.Label { Left = 12, Top = 72, Width = 80, Text = "Destination:" };
+            txtDestination = new System.Windows.Forms.TextBox { Left = 100, Top = 70, Width = 200, Text = "New York" };
+
+            lblFlightTime = new System.Windows.Forms.Label { Left = 12, Top = 102, Width = 80, Text = "Flight time (h):" };
+            numFlightTime = new System.Windows.Forms.NumericUpDown { Left = 100, Top = 100, Width = 80, Minimum = 1, Maximum = 24, Value = 6 };
+
+            btnAddPlane = new System.Windows.Forms.Button { Left = 12, Top = 140, Width = 140, Text = "Add Plane" };
+            btnAddPlane.Click += BtnAddPlane_Click;
+
+            btnTakeOff = new System.Windows.Forms.Button { Left = 160, Top = 140, Width = 140, Text = "Take Off" };
+            btnTakeOff.Click += BtnTakeOff_Click;
+
+            btnRemoveFlight = new System.Windows.Forms.Button { Left = 308, Top = 140, Width = 140, Text = "Remove Flight" };
+            btnRemoveFlight.Click += BtnRemoveFlight_Click;
+
+            lstFlights = new System.Windows.Forms.ListBox { Left = 320, Top = 10, Width = 560, Height = 280 };
+            lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
+
+            
+
+        }
+
+        #endregion
 
         #region Windows Form Designer generated code
 
