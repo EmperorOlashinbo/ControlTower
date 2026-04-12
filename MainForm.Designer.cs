@@ -76,7 +76,33 @@
             btnChangeAltitude = new System.Windows.Forms.Button { Left = 100, Top = 188, Width = 140, Text = "Change Altitude" };
             btnChangeAltitude.Click += BtnChangeAltitude_Click;
 
-            
+            // Log area
+            txtLog = new System.Windows.Forms.TextBox
+            {
+                Left = 12,
+                Top = 230,
+                Width = 868,
+                Height = 270,
+                Multiline = true,
+                ScrollBars = System.Windows.Forms.ScrollBars.Vertical,
+                ReadOnly = true
+            };
+            // Add controls to the form
+            this.Controls.Add(lblName);
+            this.Controls.Add(txtName);
+            this.Controls.Add(lblFlightId);
+            this.Controls.Add(txtFlightId);
+            this.Controls.Add(lblDestination);
+            this.Controls.Add(txtDestination);
+            this.Controls.Add(lblFlightTime);
+            this.Controls.Add(numFlightTime);
+            this.Controls.Add(btnAddPlane);
+            this.Controls.Add(btnTakeOff);
+            this.Controls.Add(btnRemoveFlight);
+            this.Controls.Add(lstFlights);
+            this.Controls.Add(numAltitude);
+            this.Controls.Add(btnChangeAltitude);
+            this.Controls.Add(txtLog);
 
         }
 
