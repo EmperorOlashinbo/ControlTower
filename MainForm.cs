@@ -80,6 +80,31 @@ namespace ControlTower
                 MessageBox.Show(message, "Takeoff", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        /// <summary>
+        /// Handles the Click event of the BtnChangeAltitude button, changing the altitude of a selected flight if it is currently in the air,
+        /// and updating the log and list view based on the outcome of the operation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRemoveFlight_Click(object sender, EventArgs e)
+        {
+            int idx = lstFlights.SelectedIndex;
+            if (idx < 0)
+            {
+                MessageBox.Show("Select a flight to remove.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (tower.RemoveFlight(idx, out string message))
+            {
+                AppendLog(message);
+                UpdateListView();
+            }
+            else
+            {
+                MessageBox.Show(message, "Remove Flight", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         
     }
