@@ -33,8 +33,7 @@ namespace ControlTower
             UpdateListView();
         }
         /// <summary>
-        /// Handles the Click event of the BtnAddPlane button, validating input and adding a new flight to the control tower registry, 
-        /// while also updating the log and list view accordingly.
+        /// Handles the Click event of the BtnAddPlane button, validating input and adding a new flight to the control tower registry, while also updating the log and list view accordingly.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The event data.</param>
@@ -55,6 +54,31 @@ namespace ControlTower
             tower.AddFlight(plane);
             AppendLog($"Added flight {plane.FlightNumber} to registry, destination {plane.Destination}");
             UpdateListView();
+        }
+        /// <summary>
+        /// Handles the Click event of the BtnTakeOff button, authorizing a selected flight for takeoff if it is not already in the air,
+        /// and updating the log and list view based on the outcome of the operation.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void BtnTakeOff_Click(object sender, EventArgs e)
+        {
+            int idx = lstFlights.SelectedIndex;
+            if (idx < 0)
+            {
+                MessageBox.Show("Select a flight to authorize takeoff.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (tower.OrderTakeOff(idx, out string message))
+            {
+                AppendLog(message);
+                UpdateListView();
+            }
+            else
+            {
+                MessageBox.Show(message, "Takeoff", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         
