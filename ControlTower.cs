@@ -57,7 +57,11 @@ namespace ControlTower
                 return false;
             }
 
-            
+            UnsubscribeFromPlaneEvents(plane);
+            flights.RemoveAt(index);
+            message = $"Flight {plane.FlightNumber} removed.";
+            StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, "removed from registry"));
+            return true;
         }
     }
 }
