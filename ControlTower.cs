@@ -50,6 +50,13 @@ namespace ControlTower
                 return false;
             }
 
+            var plane = flights[index];
+            if (plane.InFlight)
+            {
+                message = "Cannot remove an airborne flight.";
+                return false;
+            }
+
             
         }
     }
