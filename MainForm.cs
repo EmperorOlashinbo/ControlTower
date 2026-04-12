@@ -178,7 +178,33 @@ namespace ControlTower
             }
             lstFlights.EndUpdate();
         }
-
-        
+        /// <summary>
+        /// Appends a message to the log text box with a timestamp, ensuring that the most recent 
+        /// messages are visible to the user by automatically scrolling to the end of the log.
+        /// </summary>
+        /// <param name="message">The message to append to the log.</param>
+        private void AppendLog(string message)
+        {
+            string line = $"{DateTime.Now:HH:mm:ss} - {message}";
+            txtLog.AppendText(line + Environment.NewLine);
+        }
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the lstFlights ListBox, 
+        /// allowing the user to view details of the selected flight in the input fields for potential editing or review.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void LstFlights_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Display selected flight details in the text boxes
+            int idx = lstFlights.SelectedIndex;
+            if (idx >= 0 && idx < tower.Flights.Count)
+            {
+                var f = tower.Flights[idx];
+                txtFlightId.Text = f.FlightNumber;
+                txtDestination.Text = f.Destination;
+                numFlightTime.Value = (decimal)Math.Max(1, Math.Ceiling(f.FlightTime));
+            }
+        }
     }
 }
