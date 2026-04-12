@@ -94,5 +94,24 @@ namespace ControlTower
             message = $"Take-off authorized for {plane.FlightNumber}.";
             return true;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="newHeight"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public int ChangeFlightHeight(int index, int newHeight, out string message)
+        {
+            message = string.Empty;
+            if (index < 0 || index >= flights.Count)
+            {
+                message = -1.ToString();
+                message = "Invalid flight selection.";
+                return -1;
+            }
+
+            
+        }
     }
 }
