@@ -32,6 +32,30 @@ namespace ControlTower
 
             UpdateListView();
         }
+        /// <summary>
+        /// Handles the Click event of the BtnAddPlane button, validating input and adding a new flight to the control tower registry, 
+        /// while also updating the log and list view accordingly.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void BtnAddPlane_Click(object sender, EventArgs e)
+        {
+            string name = txtName.Text.Trim();
+            string id = txtFlightId.Text.Trim();
+            string destination = txtDestination.Text.Trim();
+            double time = (double)numFlightTime.Value;
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                MessageBox.Show("Provide a flight ID.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var plane = new Airplane(id, destination, time);
+            tower.AddFlight(plane);
+            AppendLog($"Added flight {plane.FlightNumber} to registry, destination {plane.Destination}");
+            UpdateListView();
+        }
 
         
     }
