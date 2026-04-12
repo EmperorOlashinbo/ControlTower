@@ -71,6 +71,11 @@
             lstFlights = new System.Windows.Forms.ListBox { Left = 320, Top = 10, Width = 560, Height = 280 };
             lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
 
+            // Altitude controls
+            numAltitude = new System.Windows.Forms.NumericUpDown { Left = 12, Top = 190, Width = 80, Minimum = 0, Maximum = 45000, Value = 10000 };
+            btnChangeAltitude = new System.Windows.Forms.Button { Left = 100, Top = 188, Width = 140, Text = "Change Altitude" };
+            btnChangeAltitude.Click += BtnChangeAltitude_Click;
+
             
 
         }
