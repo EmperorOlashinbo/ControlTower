@@ -144,5 +144,15 @@ namespace ControlTower
             plane.TakeOff += HandlePlaneTakeOff;
             plane.Landed += HandlePlaneLanded;
         }
+        /// <summary>
+        /// Unsubscribes from the takeoff and landing events of the specified airplane,
+        /// preventing the control tower from responding to changes in flight status.
+        /// </summary>
+        /// <param name="plane">The airplane whose events to unsubscribe from.</param>
+        private void UnsubscribeFromPlaneEvents(Airplane plane)
+        {
+            plane.TakeOff -= HandlePlaneTakeOff;
+            plane.Landed -= HandlePlaneLanded;
+        }
     }
 }
