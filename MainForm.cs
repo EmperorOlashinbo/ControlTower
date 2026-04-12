@@ -163,6 +163,21 @@ namespace ControlTower
             AppendLog(e.ToString());
             UpdateListView();
         }
+        /// <summary>
+        /// Appends a message to the log text box, ensuring that the most recent messages
+        /// are visible to the user by automatically scrolling to the end of the log.
+        /// </summary>
+        private void UpdateListView()
+        {
+            lstFlights.BeginUpdate();
+            lstFlights.Items.Clear();
+            foreach (var f in tower.Flights)
+            {
+                string status = f.InFlight ? $"Airborne, ALT {f.FlightHeight}" : "On ground";
+                lstFlights.Items.Add($"{f.FlightNumber} -> {f.Destination} [{status}]");
+            }
+            lstFlights.EndUpdate();
+        }
 
         
     }
