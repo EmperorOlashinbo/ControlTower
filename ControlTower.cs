@@ -111,6 +111,16 @@ namespace ControlTower
                 return -1;
             }
 
+            var plane = flights[index];
+
+            // The regular delegate is used here
+            FlightHeightHandler handler = plane.ChangeAltitude;
+            int result = handler?.Invoke(newHeight) ?? -1;
+
+            if (result == -1)
+            {
+                message = $"Flight {plane.FlightNumber} is not airborne. Altitude not changed.";
+            }
             
         }
     }
