@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ControlTower.CommonFiles;
+using ControlTower.EventArgs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,23 @@ namespace ControlTower
         public event EventHandler<AirplaneEventArgs> TakeOff;
         public event EventHandler<AirplaneEventArgs> Landed;
         public event EventHandler<AirplaneEventArgs> StatusUpdated;
+
+        /// <summary>
+        /// Event raised when a flight height (altitude) change occurs.
+        /// Subscribers receive a <see cref="FlightHeightEventArgs"/>.
+        /// </summary>
+        public event EventHandler<FlightHeightEventArgs> FlightHeightChanged;
+
+        /// <summary>
+        /// Creates a new ControlTower with a default ListManager backing store.
+        /// </summary>
+        public ControlTower()
+        {
+            flights = new ListManager<Airplane>();
+            flights.ItemAdded += Flights_ItemAdded;
+            flights.ItemRemoved += Flights_ItemRemoved;
+        }
+
         /// <summary>
         /// Gets a read-only list of airplanes currently managed by the control tower, allowing external access to flight information.
         /// </summary>
@@ -30,8 +49,8 @@ namespace ControlTower
         {
             if (plane == null) throw new ArgumentNullException(nameof(plane));
             flights.Add(plane);
-            SubscribeToPlaneEvents(plane);
-            StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
+           // SubscribeToPlaneEvents(plane);
+           // StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
         }
         /// <summary>
         /// Removes an airplane from the control tower's list of flights based on the specified index, 
@@ -57,11 +76,18 @@ namespace ControlTower
                 return false;
             }
 
+            // Unsubscribe to avoid leftover handlers
             UnsubscribeFromPlaneEvents(plane);
-            flights.RemoveAt(index);
-            message = $"Flight {plane.FlightNumber} removed.";
-            StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, "removed from registry"));
-            return true;
+
+            if (flights.RemoveAt(index))
+            {
+                message = $"Flight {plane.FlightNumber} removed.";
+                StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, "removed from registry"));
+                return true;
+            }
+
+            message = "Remove failed.";
+            return false;
         }
         /// <summary>
         /// Subscribes to the takeoff and landing events of the specified airplane,
