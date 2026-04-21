@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ControlTower.EventArgs;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
 
 
 namespace ControlTower.CommonFiles
@@ -39,5 +40,15 @@ namespace ControlTower.CommonFiles
         /// Indexer to get item by index. Throws if index invalid.
         /// </summary>
         T this[int index] { get; }
+
+        /// <summary>
+        /// Fired when an item is added.
+        /// </summary>
+        event EventHandler<ItemEventArgs<T>> ItemAdded;
+
+        /// <summary>
+        /// Fired when an item is removed.
+        /// </summary>
+        event EventHandler<ItemEventArgs<T>> ItemRemoved;
     }
 }
