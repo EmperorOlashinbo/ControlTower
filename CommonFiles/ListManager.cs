@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlTower.EventArgs;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +30,25 @@ namespace ControlTower.CommonFiles
         /// <returns>The item at the specified index.</returns>
         public T this[int index] => items[index];
         /// <summary>
+        /// Event triggered when an item is added to the collection. This allows subscribers to be notified whenever a new item is added, 
+        /// enabling them to react accordingly, such as updating a user interface or performing additional processing based on the new item.
+        /// The event uses the ItemEventArgs<T> class to provide details about the added item to the event handlers.
+        /// </summary>
+        public event EventHandler<ItemEventArgs<T>> ItemAdded;
+        /// <summary>
+        /// Event triggered when an item is removed from the collection. This allows subscribers to be notified whenever an item is removed,
+        /// enabling them to react accordingly, such as updating a user interface or performing additional processing based on the removed item.
+        /// The event uses the ItemEventArgs<T> class to provide details about the removed item to the event handlers.
+        /// </summary>
+        public event EventHandler<ItemEventArgs<T>> ItemRemoved;
+        /// <summary>
         /// Adds an item to the end of the collection.
         /// </summary>
         /// <param name="item">The item to add.</param>
         public void Add(T item)
         {
             items.Add(item);
+            ItemAdded?.Invoke(this, new ItemEventArgs<T>(item));
         }
         /// <summary>
         /// Removes the item at the specified index from the collection. 
@@ -47,7 +61,9 @@ namespace ControlTower.CommonFiles
             if (index < 0 || index >= items.Count)
                 return false;
 
+            var item = items[index];
             items.RemoveAt(index);
+            ItemRemoved?.Invoke(this, new ItemEventArgs<T>(item));
             return true;
         }
         /// <summary>

@@ -53,6 +53,7 @@
     <Compile Include="ControlTower.cs" />
     <Compile Include="EventArgs\AirplaneEventArgs.cs" />
     <Compile Include="EventArgs\FlightHeightEventArgs.cs" />
+    <Compile Include="EventArgs\ItemEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
