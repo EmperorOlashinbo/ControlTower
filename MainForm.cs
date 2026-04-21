@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlTower.EventArgs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,6 +31,20 @@ namespace ControlTower
             tower.Landed += Tower_Landed;
             tower.StatusUpdated += Tower_StatusUpdated;
 
+            tower.FlightHeightChanged += Tower_FlightHeightChanged;
+
+            UpdateListView();
+        }
+        /// <summary>
+        /// Handles the FlightHeightChanged event of the control tower, appending the event information to the log and updating
+        /// the list view to reflect any changes in flight altitude in the registry.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        private void Tower_FlightHeightChanged(object sender, FlightHeightEventArgs e)
+        {
+            // FlightHeightEventArgs overrides ToString; include it in log and refresh UI.
+            AppendLog(e.ToString());
             UpdateListView();
         }
         /// <summary>
@@ -196,7 +211,7 @@ namespace ControlTower
         /// <param name="e">The event data.</param>
         private void LstFlights_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Display selected flight details in the text boxes
+            // D isplay selected flight details in the text boxes
             int idx = lstFlights.SelectedIndex;
             if (idx >= 0 && idx < tower.Flights.Count)
             {
