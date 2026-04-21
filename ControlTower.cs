@@ -133,7 +133,6 @@ namespace ControlTower
             message = string.Empty;
             if (index < 0 || index >= flights.Count)
             {
-                message = -1.ToString();
                 message = "Invalid flight selection.";
                 return -1;
             }
@@ -152,9 +151,22 @@ namespace ControlTower
             {
                 message = $"Flight {plane.FlightNumber} altitude changed to {result}.";
                 StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"altitude changed to {result}"));
+                FlightHeightChanged?.Invoke(this, new FlightHeightEventArgs(plane.FlightNumber, result, message));
             }
 
             return result;
+        }
+        /// <summary>
+        /// Handles the event when an airplane is removed from the backing store by unsubscribing from its events and notifying listeners of the removal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Flights_ItemAdded(object sender, ItemEventArgs<Airplane> e)
+        {
+            // When an airplane is added to the backing store, subscribe to its events and notify listeners.
+            var plane = e.Item;
+            SubscribeToPlaneEvents(plane);
+            StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
         }
         /// <summary>
         /// Subscribes to the takeoff and landing events of the specified airplane, 
