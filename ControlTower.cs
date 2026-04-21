@@ -169,6 +169,17 @@ namespace ControlTower
             StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
         }
         /// <summary>
+        /// Handles the event when an airplane is removed from the backing store by unsubscribing from its events and notifying listeners of the removal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Flights_ItemRemoved(object sender, ItemEventArgs<Airplane> e)
+        {
+            // When removed from backing store, ensure unsubscribed (defensive).
+            var plane = e.Item;
+            UnsubscribeFromPlaneEvents(plane);
+        }
+        /// <summary>
         /// Subscribes to the takeoff and landing events of the specified airplane, 
         /// allowing the control tower to respond to changes in flight status.
         /// </summary>
