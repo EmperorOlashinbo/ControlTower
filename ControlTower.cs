@@ -160,7 +160,11 @@ namespace ControlTower
 
             return result;
         }
-
+        /// <summary>
+        /// Handles the event when an airplane is added to the flights collection by subscribing to its events and notifying listeners of the new registration.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The ItemEventArgs containing event data.</param>
         private void Flights_ItemAdded(object sender, ItemEventArgs<Airplane> e)
         {
             // When an airplane is added to the backing store, subscribe to its events and notify listeners.
@@ -168,14 +172,21 @@ namespace ControlTower
             SubscribeToPlaneEvents(plane);
             StatusUpdated?.Invoke(this, new AirplaneEventArgs(plane.FlightNumber, $"registered, destination {plane.Destination}"));
         }
-
+        /// <summary>
+        /// Handles the event when an airplane is removed from the flights collection by unsubscribing from its events to prevent memory leaks and unintended event handling.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Flights_ItemRemoved(object sender, ItemEventArgs<Airplane> e)
         {
             // When removed from backing store, ensure unsubscribed (defensive).
             var plane = e.Item;
             UnsubscribeFromPlaneEvents(plane);
         }
-
+        /// <summary>
+        /// Subscribes to the specified airplane's events to allow the control tower to react to takeoff and landing events.
+        /// </summary>
+        /// <param name="plane">The airplane whose events to subscribe to.</param>
         private void SubscribeToPlaneEvents(Airplane plane)
         {
             // Prevent multiple subscriptions by removing first (safe)
@@ -186,9 +197,9 @@ namespace ControlTower
             plane.Landed += HandlePlaneLanded;
         }
         /// <summary>
-        /// 
+        /// Unsubscribes from the specified airplane's events to prevent memory leaks and unintended event handling after the plane is removed or has landed.
         /// </summary>
-        /// <param name="plane"></param>
+        /// <param name="plane">The airplane whose events to unsubscribe from.</param>
         private void UnsubscribeFromPlaneEvents(Airplane plane)
         {
             plane.TakeOff -= HandlePlaneTakeOff;
