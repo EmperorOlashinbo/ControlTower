@@ -3,9 +3,9 @@
 namespace ControlTower
 {
     /// <summary>
-    /// Provides event data for airplane-related events, including flight number, message, and timestamp.
+    /// Provides event data for airplane related events, including flight number, message, and timestamp.
     /// </summary>
-    public class AirplaneEventArgs : EventArgs
+    public class AirplaneEventArgs : System.EventArgs
     {
         public string FlightNumber { get; }
         public string Message { get; }
