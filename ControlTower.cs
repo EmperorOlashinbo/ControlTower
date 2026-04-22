@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Alias EventArgs identifier to System.EventArgs to avoid ambiguity with ControlTower.EventArgs namespace.
+using EventArgs = System.EventArgs;
+
 namespace ControlTower
 {
     /// <summary>
@@ -160,6 +163,7 @@ namespace ControlTower
 
             return result;
         }
+
         /// <summary>
         /// Handles the event when an airplane is added to the flights collection by subscribing to its events and notifying listeners of the new registration.
         /// </summary>
