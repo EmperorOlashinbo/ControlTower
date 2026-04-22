@@ -33,7 +33,7 @@
         private System.Windows.Forms.TextBox txtLog;
 
         /// <summary>
-        /// Cleans up any resources being used. This method is called when the form is being disposed, 
+        /// Cleans up any resources being used. This method is called when the form is being disposed,
         /// allowing for proper cleanup of resources such as components and event handlers to prevent memory leaks and ensure efficient resource management.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -47,11 +47,11 @@
 
         #region Designer generated
         /// <summary>
-        /// Required method for Designer support do not modify the contents of this method with the code editor.
-        /// This method is responsible for initializing and configuring all the user interface components on the form,
-        /// including setting their properties, arranging them in the layout, and attaching event handlers for user interactions. 
-        /// Modifying this method manually can lead to issues with the designer and may cause unexpected behavior in the application, 
-        /// so it is recommended to use the designer interface for making changes to the UI components.
+        /// Required method for Designer support do not modify the contents of this method with the code editor. 
+        /// This method is responsible for initializing and configuring all the user interface components of the form, 
+        /// including setting their properties, arranging them within the layout, and attaching event handlers to respond to user interactions. 
+        /// Modifying this method manually can lead to issues with the designer and may cause unexpected behavior in the application,
+        /// so it is recommended to use the designer tools for any changes to the UI components.
         /// </summary>
         private void InitializeComponent()
         {
@@ -67,7 +67,7 @@
             mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
 
-            // Left panel (inputs & actions)
+            // Left panel for inputs and controls
             leftPanel = new System.Windows.Forms.Panel();
             leftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             leftPanel.Padding = new System.Windows.Forms.Padding(12);
@@ -122,7 +122,7 @@
             grpControls.Controls.Add(numAltitude);
             grpControls.Controls.Add(btnChangeAltitude);
 
-            // Flights group on left - shows small preview (not the main list)
+            // Flight preview group (can be expanded later to show more details or a graphical representation)
             grpFlights = new System.Windows.Forms.GroupBox();
             grpFlights.Text = "Selected flight preview";
             grpFlights.Left = 8;
@@ -131,7 +131,7 @@
             grpFlights.Height = 120;
             grpFlights.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 
-            // Log group will be in bottom-left when window narrows
+            // Log group (for status updates and timestamps)
             grpLog = new System.Windows.Forms.GroupBox();
             grpLog.Text = "Status log (timestamps)";
             grpLog.Left = 8;
@@ -140,7 +140,7 @@
             grpLog.Height = 100;
             grpLog.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 
-            // Right side: main flights list
+            // Flights list (spans top row)
             lstFlights = new System.Windows.Forms.ListBox();
             lstFlights.Dock = System.Windows.Forms.DockStyle.Fill;
             lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
@@ -165,7 +165,7 @@
             var logBox = new System.Windows.Forms.GroupBox { Text = "Event Log", Dock = System.Windows.Forms.DockStyle.Fill };
             logBox.Controls.Add(txtLog);
 
-            // Add controls to left panel
+            // Place controls in left panel
             leftPanel.Controls.Add(lblName);
             leftPanel.Controls.Add(txtName);
             leftPanel.Controls.Add(lblFlightId);
@@ -186,7 +186,7 @@
             mainLayout.Controls.Add(logBox, 1, 1);
 
             // Form settings
-            this.Text = "Airport Simulator - Control Tower By Ibrahim";
+            this.Text = "Airport Simulator - Control Tower by Ibrahim";
             this.ClientSize = new System.Drawing.Size(980, 620);
             this.Controls.Add(mainLayout);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
