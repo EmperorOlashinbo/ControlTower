@@ -9,10 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Alias EventArgs identifier to System.EventArgs to avoid ambiguity with the ControlTower.EventArgs namespace.
-// This keeps method signatures using 'EventArgs' working while still allowing 'ControlTower.EventArgs' types to be imported.
-using EventArgs = System.EventArgs;
-
 namespace ControlTower
 {
     /// <summary>
@@ -39,24 +35,22 @@ namespace ControlTower
 
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the FlightHeightChanged event of the control tower, appending the event information to the log and updating
         /// the list view to reflect any changes in flight altitude in the registry.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void Tower_FlightHeightChanged(object sender, FlightHeightEventArgs e)
         {
             // FlightHeightEventArgs overrides ToString; include it in log and refresh UI.
             AppendLog(e.ToString());
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the Click event of the BtnAddPlane button, validating input and adding a new flight to the control tower registry, while also updating the log and list view accordingly.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void BtnAddPlane_Click(object sender, EventArgs e)
+        private void BtnAddPlane_Click(object sender, System.EventArgs e)
         {
             string name = txtName.Text.Trim();
             string id = txtFlightId.Text.Trim();
@@ -74,13 +68,12 @@ namespace ControlTower
             AppendLog($"Added flight {plane.FlightNumber} to registry, destination {plane.Destination}");
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the Click event of the BtnTakeOff button, authorizing a selected flight for takeoff if it is not already in the air,
         /// and updating the log and list view based on the outcome of the operation.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void BtnTakeOff_Click(object sender, EventArgs e)
+        private void BtnTakeOff_Click(object sender, System.EventArgs e)
         {
             int idx = lstFlights.SelectedIndex;
             if (idx < 0)
@@ -99,13 +92,11 @@ namespace ControlTower
                 MessageBox.Show(message, "Takeoff", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         /// <summary>
-        /// Handles the Click event of the BtnChangeAltitude button, changing the altitude of a selected flight if it is currently in the air,
-        /// and updating the log and list view based on the outcome of the operation.
+        /// Handles the Click event of the BtnRemoveFlight button, removing a selected flight if allowed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnRemoveFlight_Click(object sender, EventArgs e)
+        private void BtnRemoveFlight_Click(object sender, System.EventArgs e)
         {
             int idx = lstFlights.SelectedIndex;
             if (idx < 0)
@@ -124,13 +115,12 @@ namespace ControlTower
                 MessageBox.Show(message, "Remove Flight", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         /// <summary>
         /// Handles the Click event of the BtnChangeAltitude button, allowing the user to change the altitude of a selected flight if it is currently in the air,
         /// and updating the log and list view based on the outcome of the operation.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void BtnChangeAltitude_Click(object sender, EventArgs e)
+        private void BtnChangeAltitude_Click(object sender, System.EventArgs e)
         {
             int idx = lstFlights.SelectedIndex;
             if (idx < 0)
@@ -150,38 +140,36 @@ namespace ControlTower
 
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the TakeOff event of the control tower, appending the event information to the log and updating the list view to reflect the current status of flights in the registry.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void Tower_TakeOff(object sender, AirplaneEventArgs e)
         {
             AppendLog(e.ToString());
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the Landed event of the control tower, appending the event information to the log 
         /// and updating the list view to reflect the current status of flights in the registry.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void Tower_Landed(object sender, AirplaneEventArgs e)
         {
             AppendLog(e.ToString());
             UpdateListView();
         }
+
         /// <summary>
         /// Handles the StatusUpdated event of the control tower, appending the event information to the log and 
         /// updating the list view to reflect any changes in flight status or altitude in the registry.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
         private void Tower_StatusUpdated(object sender, AirplaneEventArgs e)
         {
             AppendLog(e.ToString());
             UpdateListView();
         }
+
         /// <summary>
         /// Appends a message to the log text box, ensuring that the most recent messages
         /// are visible to the user by automatically scrolling to the end of the log.
@@ -197,23 +185,22 @@ namespace ControlTower
             }
             lstFlights.EndUpdate();
         }
+
         /// <summary>
         /// Appends a message to the log text box with a timestamp, ensuring that the most recent 
         /// messages are visible to the user by automatically scrolling to the end of the log.
         /// </summary>
-        /// <param name="message">The message to append to the log.</param>
         private void AppendLog(string message)
         {
             string line = $"{DateTime.Now:HH:mm:ss} - {message}";
             txtLog.AppendText(line + Environment.NewLine);
         }
+
         /// <summary>
         /// Handles the SelectedIndexChanged event of the lstFlights ListBox, 
         /// allowing the user to view details of the selected flight in the input fields for potential editing or review.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void LstFlights_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstFlights_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             // Display selected flight details in the text boxes
             int idx = lstFlights.SelectedIndex;
