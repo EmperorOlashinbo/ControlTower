@@ -10,7 +10,7 @@ namespace ControlTower.EventArgs
     /// Event arguments used by <see cref="ListManager{T}"/> when items are added/removed.
     /// </summary>
     /// <typeparam name="T">Item type.</typeparam>
-    public class ItemEventArgs<T> : EventArgs
+    public class ItemEventArgs<T> : System.EventArgs
     {
         /// <summary>
         /// Gets the stored item of type T.
