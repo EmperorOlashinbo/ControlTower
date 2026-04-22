@@ -13,6 +13,7 @@ namespace ControlTower
     /// <param name="newHeight">The new flight height value.</param>
     /// <returns>The result of processing the new flight height.</returns>
     public delegate int FlightHeightHandler(int newHeight);
+
     /// <summary>
     /// Represents an airplane with flight details such as flight number, destination, flight time, height, and flight
     /// status.
@@ -33,19 +34,18 @@ namespace ControlTower
         /// Occurs when an airplane takes off.
         /// </summary>
         public event EventHandler<AirplaneEventArgs> TakeOff;
+
         /// <summary>
-        /// Occurs when an airplane is landing.
+        /// Occurs when an airplane has landed.
         /// </summary>
         public event EventHandler<AirplaneEventArgs> Landed;
 
         /// <summary>
-        /// Initializes a new instance of the Airplane class with the specified flight number, destination, and flight
-        /// time.
+        /// Initializes a new instance of the Airplane class with the specified flight number, destination, and flight time.
         /// </summary>
         /// <param name="flightNumber">The flight number assigned to the airplane.</param>
         /// <param name="destination">The destination of the flight.</param>
         /// <param name="flightTime">The duration of the flight in hours.</param>
-        /// <exception cref="ArgumentNullException">Thrown when flightNumber is null.</exception>
         public Airplane(string flightNumber, string destination, double flightTime)
         {
             FlightNumber = flightNumber ?? throw new ArgumentNullException(nameof(flightNumber));
@@ -53,70 +53,80 @@ namespace ControlTower
             FlightTime = Math.Max(0.0, flightTime);
             FlightHeight = 0;
             InFlight = false;
+
             dispatchTimer = new Timer { Interval = 1000 };
+            // Use a handler signature that references System.EventArgs explicitly to avoid
+            // conflicts with the project's ControlTower.EventArgs namespace.
             dispatchTimer.Tick += DispatchTimer_Tick;
         }
+
         /// <summary>
         /// Starts the airplane's flight, initializing flight parameters and notifying listeners of takeoff.
         /// </summary>
         public void Start()
         {
             if (InFlight) return;
+
             InFlight = true;
             departureTime = DateTime.Now;
             elapsedSeconds = 0;
-            // Notify that the airplane is preparing for takeoff
+
             OnTakeOff(new AirplaneEventArgs(FlightNumber, $"Preparing for takeoff, heading for {Destination}"));
-            // Start the timer to simulate flight time
+
             dispatchTimer.Start();
+
             OnTakeOff(new AirplaneEventArgs(FlightNumber, $"Took off, heading for {Destination}"));
         }
+
         /// <summary>
-        /// Handles the timer tick event to simulate flight time and triggers landing when the flight time is reached.
+        /// Compatibility wrapper used by callers expecting StartTakeOff.
         /// </summary>
-        /// <param name="newAltitude">The new altitude to set for the airplane.</param>
-        /// <returns>The updated flight height.</returns>
+        public void StartTakeOff()
+        {
+            Start();
+        }
+
+        /// <summary>
+        /// Changes the airplane's altitude. Returns -1 when not airborne.
+        /// </summary>
+        /// <param name="newAltitude">The new altitude value.</param>
+        /// <returns>The updated flight height, or -1 if not airborne.</returns>
         public int ChangeAltitude(int newAltitude)
         {
             if (!InFlight)
-            {
-                // Not airborne; ignore change
                 return -1;
-            }
 
             FlightHeight = newAltitude;
             return FlightHeight;
         }
-        /// <summary>
-        /// Raises the TakeOff event with the specified event arguments.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The event data.</param>
-        private void DispatchTimer_Tick(object sender, EventArgs e)
+
+        // Use System.EventArgs explicitly to avoid ambiguity with ControlTower.EventArgs namespace.
+        private void DispatchTimer_Tick(object _sender, System.EventArgs _e)
         {
             elapsedSeconds++;
 
             // FlightTime is given in hours; in simulation 1 second == 1 hour so compare seconds to FlightTime.
             if (elapsedSeconds >= Math.Ceiling(FlightTime))
             {
-                // Stop timer and land
                 dispatchTimer.Stop();
                 InFlight = false;
                 OnLanded(new AirplaneEventArgs(FlightNumber, $"has landed in {Destination}"));
             }
         }
+
         /// <summary>
-        /// Raises the TakeOff event with the specified event arguments, allowing subscribers to respond to the airplane's
+        /// Raises the TakeOff event with the specified event arguments.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Event data.</param>
         protected virtual void OnTakeOff(AirplaneEventArgs e)
         {
             TakeOff?.Invoke(this, e);
         }
+
         /// <summary>
-        /// Raises the Landed event with the specified event arguments, allowing subscribers to respond to the airplane's
+        /// Raises the Landed event with the specified event arguments.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Event data.</param>
         protected virtual void OnLanded(AirplaneEventArgs e)
         {
             Landed?.Invoke(this, e);
