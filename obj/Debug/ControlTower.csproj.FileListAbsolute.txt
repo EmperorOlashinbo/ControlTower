@@ -1,5 +1,11 @@
+C:\Users\Emperor\source\repos\ControlTower\bin\Debug\ControlTower.exe.config
+C:\Users\Emperor\source\repos\ControlTower\bin\Debug\ControlTower.exe
+C:\Users\Emperor\source\repos\ControlTower\bin\Debug\ControlTower.pdb
 C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.AssemblyReference.cache
 C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.MainForm.resources
 C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.Properties.Resources.resources
 C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.GenerateResource.cache
 C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.CoreCompileInputs.cache
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.exe
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.pdb
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.exe.config

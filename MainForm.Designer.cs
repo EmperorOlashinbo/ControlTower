@@ -8,6 +8,13 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.TableLayoutPanel mainLayout;
+        private System.Windows.Forms.Panel leftPanel;
+        private System.Windows.Forms.GroupBox grpFlights;
+        private System.Windows.Forms.GroupBox grpControls;
+        private System.Windows.Forms.GroupBox grpLog;
+        private System.Windows.Forms.ListBox lstFlights;
+
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblFlightId;
         private System.Windows.Forms.Label lblDestination;
@@ -16,16 +23,18 @@
         private System.Windows.Forms.TextBox txtFlightId;
         private System.Windows.Forms.TextBox txtDestination;
         private System.Windows.Forms.NumericUpDown numFlightTime;
-        private System.Windows.Forms.Button btnAddPlane;
-        private System.Windows.Forms.Button btnTakeOff;
-        private System.Windows.Forms.Button btnChangeAltitude;
-        private System.Windows.Forms.Button btnRemoveFlight;
-        private System.Windows.Forms.ListBox lstFlights;
-        private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.NumericUpDown numAltitude;
 
+        private System.Windows.Forms.Button btnAddPlane;
+        private System.Windows.Forms.Button btnTakeOff;
+        private System.Windows.Forms.Button btnRemoveFlight;
+        private System.Windows.Forms.Button btnChangeAltitude;
+
+        private System.Windows.Forms.TextBox txtLog;
+
         /// <summary>
-        /// Clean up any resources being used.
+        /// Cleans up any resources being used. This method is called when the form is being disposed, 
+        /// allowing for proper cleanup of resources such as components and event handlers to prevent memory leaks and ensure efficient resource management.
         /// </summary>
         protected override void Dispose(bool disposing)
         {
@@ -36,76 +45,150 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
+        #region Designer generated
         /// <summary>
-        /// Required method for Designer support do not modify
-        /// the contents of this method with the code editor.
+        /// Required method for Designer support do not modify the contents of this method with the code editor.
+        /// This method is responsible for initializing and configuring all the user interface components on the form,
+        /// including setting their properties, arranging them in the layout, and attaching event handlers for user interactions. 
+        /// Modifying this method manually can lead to issues with the designer and may cause unexpected behavior in the application, 
+        /// so it is recommended to use the designer interface for making changes to the UI components.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Text = "Airport Simulator - Control Tower";
-            this.ClientSize = new System.Drawing.Size(900, 520);
 
-            lblName = new System.Windows.Forms.Label { Left = 12, Top = 12, Width = 80, Text = "Name:" };
-            txtName = new System.Windows.Forms.TextBox { Left = 100, Top = 10, Width = 200, Text = "Boeing 747 XL" };
+            // Main layout
+            mainLayout = new System.Windows.Forms.TableLayoutPanel();
+            mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            mainLayout.ColumnCount = 2;
+            mainLayout.RowCount = 2;
+            mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 320F)); // left panel fixed width
+            mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
 
-            lblFlightId = new System.Windows.Forms.Label { Left = 12, Top = 42, Width = 80, Text = "Flight ID:" };
-            txtFlightId = new System.Windows.Forms.TextBox { Left = 100, Top = 40, Width = 200, Text = "LFT 123" };
+            // Left panel (inputs & actions)
+            leftPanel = new System.Windows.Forms.Panel();
+            leftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            leftPanel.Padding = new System.Windows.Forms.Padding(12);
 
-            lblDestination = new System.Windows.Forms.Label { Left = 12, Top = 72, Width = 80, Text = "Destination:" };
-            txtDestination = new System.Windows.Forms.TextBox { Left = 100, Top = 70, Width = 200, Text = "New York" };
+            // Labels and inputs
+            lblName = new System.Windows.Forms.Label { Text = "Name:", AutoSize = true, Left = 8, Top = 8 };
+            txtName = new System.Windows.Forms.TextBox { Left = 100, Top = 4, Width = 200, Text = "Boeing 747 XL" };
 
-            lblFlightTime = new System.Windows.Forms.Label { Left = 12, Top = 102, Width = 80, Text = "Flight time (h):" };
-            numFlightTime = new System.Windows.Forms.NumericUpDown { Left = 100, Top = 100, Width = 80, Minimum = 1, Maximum = 24, Value = 6 };
+            lblFlightId = new System.Windows.Forms.Label { Text = "Flight ID:", AutoSize = true, Left = 8, Top = 40 };
+            txtFlightId = new System.Windows.Forms.TextBox { Left = 100, Top = 36, Width = 200, Text = "LFT 123" };
 
-            btnAddPlane = new System.Windows.Forms.Button { Left = 12, Top = 140, Width = 140, Text = "Add Plane" };
+            lblDestination = new System.Windows.Forms.Label { Text = "Destination:", AutoSize = true, Left = 8, Top = 72 };
+            txtDestination = new System.Windows.Forms.TextBox { Left = 100, Top = 68, Width = 200, Text = "New York" };
+
+            lblFlightTime = new System.Windows.Forms.Label { Text = "Flight time (h):", AutoSize = true, Left = 8, Top = 104 };
+            numFlightTime = new System.Windows.Forms.NumericUpDown
+            {
+                Left = 120,
+                Top = 100,
+                Width = 80,
+                Minimum = 1,
+                Maximum = 24,
+                Value = 6
+            };
+
+            // Controls group (buttons)
+            grpControls = new System.Windows.Forms.GroupBox();
+            grpControls.Text = "Actions";
+            grpControls.Left = 8;
+            grpControls.Top = 140;
+            grpControls.Width = 300;
+            grpControls.Height = 110;
+            grpControls.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+
+            btnAddPlane = new System.Windows.Forms.Button { Text = "Add Plane", Width = 88, Height = 30, Left = 12, Top = 24 };
             btnAddPlane.Click += BtnAddPlane_Click;
 
-            btnTakeOff = new System.Windows.Forms.Button { Left = 160, Top = 140, Width = 140, Text = "Take Off" };
+            btnTakeOff = new System.Windows.Forms.Button { Text = "Take Off", Width = 88, Height = 30, Left = 110, Top = 24 };
             btnTakeOff.Click += BtnTakeOff_Click;
 
-            btnRemoveFlight = new System.Windows.Forms.Button { Left = 308, Top = 140, Width = 140, Text = "Remove Flight" };
+            btnRemoveFlight = new System.Windows.Forms.Button { Text = "Remove Flight", Width = 88, Height = 30, Left = 208, Top = 24 };
             btnRemoveFlight.Click += BtnRemoveFlight_Click;
 
-            lstFlights = new System.Windows.Forms.ListBox { Left = 320, Top = 10, Width = 560, Height = 280 };
-            lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
-
-            // Altitude controls
-            numAltitude = new System.Windows.Forms.NumericUpDown { Left = 12, Top = 190, Width = 80, Minimum = 0, Maximum = 45000, Value = 10000 };
-            btnChangeAltitude = new System.Windows.Forms.Button { Left = 100, Top = 188, Width = 140, Text = "Change Altitude" };
+            // Altitude controls placed within group for clarity
+            numAltitude = new System.Windows.Forms.NumericUpDown { Left = 12, Top = 64, Width = 100, Minimum = 0, Maximum = 45000, Value = 10000 };
+            btnChangeAltitude = new System.Windows.Forms.Button { Text = "Change Altitude", Width = 166, Height = 26, Left = 122, Top = 62 };
             btnChangeAltitude.Click += BtnChangeAltitude_Click;
 
-            // Log area
+            grpControls.Controls.Add(btnAddPlane);
+            grpControls.Controls.Add(btnTakeOff);
+            grpControls.Controls.Add(btnRemoveFlight);
+            grpControls.Controls.Add(numAltitude);
+            grpControls.Controls.Add(btnChangeAltitude);
+
+            // Flights group on left - shows small preview (not the main list)
+            grpFlights = new System.Windows.Forms.GroupBox();
+            grpFlights.Text = "Selected flight preview";
+            grpFlights.Left = 8;
+            grpFlights.Top = 260;
+            grpFlights.Width = 300;
+            grpFlights.Height = 120;
+            grpFlights.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+
+            // Log group will be in bottom-left when window narrows
+            grpLog = new System.Windows.Forms.GroupBox();
+            grpLog.Text = "Status log (timestamps)";
+            grpLog.Left = 8;
+            grpLog.Top = 388;
+            grpLog.Width = 300;
+            grpLog.Height = 100;
+            grpLog.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+
+            // Right side: main flights list
+            lstFlights = new System.Windows.Forms.ListBox();
+            lstFlights.Dock = System.Windows.Forms.DockStyle.Fill;
+            lstFlights.SelectedIndexChanged += LstFlights_SelectedIndexChanged;
+
+            var flightsPanel = new System.Windows.Forms.Panel();
+            flightsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            flightsPanel.Padding = new System.Windows.Forms.Padding(8);
+
+            var flightsBox = new System.Windows.Forms.GroupBox { Text = "Registered flights", Dock = System.Windows.Forms.DockStyle.Fill };
+            flightsBox.Controls.Add(lstFlights);
+            flightsPanel.Controls.Add(flightsBox);
+
+            // Log textbox (spans bottom row)
             txtLog = new System.Windows.Forms.TextBox
             {
-                Left = 12,
-                Top = 230,
-                Width = 868,
-                Height = 270,
                 Multiline = true,
                 ScrollBars = System.Windows.Forms.ScrollBars.Vertical,
-                ReadOnly = true
+                ReadOnly = true,
+                Dock = System.Windows.Forms.DockStyle.Fill
             };
-            // Add controls to the form
-            this.Controls.Add(lblName);
-            this.Controls.Add(txtName);
-            this.Controls.Add(lblFlightId);
-            this.Controls.Add(txtFlightId);
-            this.Controls.Add(lblDestination);
-            this.Controls.Add(txtDestination);
-            this.Controls.Add(lblFlightTime);
-            this.Controls.Add(numFlightTime);
-            this.Controls.Add(btnAddPlane);
-            this.Controls.Add(btnTakeOff);
-            this.Controls.Add(btnRemoveFlight);
-            this.Controls.Add(lstFlights);
-            this.Controls.Add(numAltitude);
-            this.Controls.Add(btnChangeAltitude);
-            this.Controls.Add(txtLog);
 
-            // final layout settings (optional)
+            var logBox = new System.Windows.Forms.GroupBox { Text = "Event Log", Dock = System.Windows.Forms.DockStyle.Fill };
+            logBox.Controls.Add(txtLog);
+
+            // Add controls to left panel
+            leftPanel.Controls.Add(lblName);
+            leftPanel.Controls.Add(txtName);
+            leftPanel.Controls.Add(lblFlightId);
+            leftPanel.Controls.Add(txtFlightId);
+            leftPanel.Controls.Add(lblDestination);
+            leftPanel.Controls.Add(txtDestination);
+            leftPanel.Controls.Add(lblFlightTime);
+            leftPanel.Controls.Add(numFlightTime);
+            leftPanel.Controls.Add(grpControls);
+            leftPanel.Controls.Add(grpFlights);
+            leftPanel.Controls.Add(grpLog);
+
+            // Place mainLayout children
+            mainLayout.Controls.Add(leftPanel, 0, 0);
+            mainLayout.SetRowSpan(leftPanel, 2); 
+
+            mainLayout.Controls.Add(flightsPanel, 1, 0);
+            mainLayout.Controls.Add(logBox, 1, 1);
+
+            // Form settings
+            this.Text = "Airport Simulator - Control Tower By Ibrahim";
+            this.ClientSize = new System.Drawing.Size(980, 620);
+            this.Controls.Add(mainLayout);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
         }
 
