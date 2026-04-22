@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Alias EventArgs identifier to System.EventArgs to avoid ambiguity with the ControlTower.EventArgs namespace.
+// This keeps method signatures using 'EventArgs' working while still allowing 'ControlTower.EventArgs' types to be imported.
+using EventArgs = System.EventArgs;
+
 namespace ControlTower
 {
     /// <summary>
@@ -18,7 +22,7 @@ namespace ControlTower
     public partial class MainForm : Form
     {
         private readonly ControlTower tower = new ControlTower();
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
         /// </summary>
@@ -211,7 +215,7 @@ namespace ControlTower
         /// <param name="e">The event data.</param>
         private void LstFlights_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // D isplay selected flight details in the text boxes
+            // Display selected flight details in the text boxes
             int idx = lstFlights.SelectedIndex;
             if (idx >= 0 && idx < tower.Flights.Count)
             {
