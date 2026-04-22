@@ -1,0 +1,5 @@
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.AssemblyReference.cache
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.MainForm.resources
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.Properties.Resources.resources
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.GenerateResource.cache
+C:\Users\Emperor\source\repos\ControlTower\obj\Debug\ControlTower.csproj.CoreCompileInputs.cache
